@@ -42,7 +42,7 @@ export default function App(){
       // If backend auth not ready, fallback to local demo:
       // Check admin secret
       if(authForm.role==='admin' && authForm.password!==ADMIN_PASS){
-        return alert('Wrong admin secret! Admin password must be admeen1739')
+                return alert('Wrong admin password! Access denied')
       }
       if(!isLogin){
         const newUser = { ...authForm, id: Date.now() }
