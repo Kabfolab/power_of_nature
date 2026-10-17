@@ -151,7 +151,7 @@ export default function App(){
           <h2>{isLogin ? 'Welcome Back' : 'Create Account'}</h2>
           {!isLogin && <input placeholder="Full Name" value={authForm.name} onChange={e=>setAuthForm({...authForm, name:e.target.value})} style={{padding:12, width:'100%', marginBottom:8}}/>}
           <input placeholder="Email" value={authForm.email} onChange={e=>setAuthForm({...authForm, email:e.target.value})} style={{padding:12, width:'100%', marginBottom:8}}/>
-          <input type="password" placeholder={authForm.role==='admin' ? "Enter admeen1739 for admin" : "Password"} value={authForm.password} onChange={e=>setAuthForm({...authForm, password:e.target.value})} style={{padding:12, width:'100%', marginBottom:8}}/>
+          <input type="password" placeholder="Password" value={authForm.password} onChange={e=>setAuthForm({...authForm, password:e.target.value})} style={{padding:12, width:'100%', marginBottom:8}}/>
           {!isLogin && (
             <select value={authForm.role} onChange={e=>setAuthForm({...authForm, role:e.target.value})} style={{padding:12, width:'100%', marginBottom:8}}>
               <option value="user">I am a Customer</option>
@@ -160,7 +160,6 @@ export default function App(){
           )}
           <button className="btn" style={{width:'100%', padding:12, background:'#1a4d2e', color:'white'}} onClick={handleAuth}>{isLogin ? 'Login' : 'Sign Up'}</button>
           <p style={{marginTop:10}}> {isLogin ? "No account?" : "Have account?"} <span style={{color:'green', cursor:'pointer'}} onClick={()=>setIsLogin(!isLogin)}>{isLogin ? 'Sign Up' : 'Login'}</span></p>
-          <small style={{color:'#888'}}>Admin secret is admeen1739</small>
         </div>
       )}
 
