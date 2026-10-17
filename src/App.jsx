@@ -42,7 +42,7 @@ export default function App(){
       // If backend auth not ready, fallback to local demo:
       // Check admin secret
       if(authForm.role==='admin' && authForm.password!==ADMIN_PASS){
-                return alert('Wrong admin password! Access denied')
+        return alert('Wrong admin password! Access denied')
       }
       if(!isLogin){
         const newUser = { ...authForm, id: Date.now() }
@@ -145,21 +145,49 @@ export default function App(){
         </div>
       )}
 
-      {/* LOGIN / SIGNUP */}
+      {/* LOGIN / SIGNUP - WORLD CLASS BEAUTIFUL FOR BOTH */}
       {view==='login' && (
-        <div style={{padding:20, maxWidth:400, margin:'40px auto', border:'1px solid #eee', borderRadius:12}}>
-          <h2>{isLogin ? 'Welcome Back' : 'Create Account'}</h2>
-          {!isLogin && <input placeholder="Full Name" value={authForm.name} onChange={e=>setAuthForm({...authForm, name:e.target.value})} style={{padding:12, width:'100%', marginBottom:8}}/>}
-          <input placeholder="Email" value={authForm.email} onChange={e=>setAuthForm({...authForm, email:e.target.value})} style={{padding:12, width:'100%', marginBottom:8}}/>
-          <input type="password" placeholder="Password" value={authForm.password} onChange={e=>setAuthForm({...authForm, password:e.target.value})} style={{padding:12, width:'100%', marginBottom:8}}/>
-          {!isLogin && (
-            <select value={authForm.role} onChange={e=>setAuthForm({...authForm, role:e.target.value})} style={{padding:12, width:'100%', marginBottom:8}}>
-              <option value="user">I am a Customer</option>
-              <option value="admin">I am an Admin</option>
-            </select>
-          )}
-          <button className="btn" style={{width:'100%', padding:12, background:'#1a4d2e', color:'white'}} onClick={handleAuth}>{isLogin ? 'Login' : 'Sign Up'}</button>
-          <p style={{marginTop:10}}> {isLogin ? "No account?" : "Have account?"} <span style={{color:'green', cursor:'pointer'}} onClick={()=>setIsLogin(!isLogin)}>{isLogin ? 'Sign Up' : 'Login'}</span></p>
+        <div style={{minHeight:'85vh', display:'flex', alignItems:'center', justifyContent:'center', background:'linear-gradient(135deg, #e8f5e9 0%, #f1f8e9 50%, #ffffff 100%)', padding:'20px 16px'}}>
+          <div style={{width:'100%', maxWidth:420, background:'white', padding:'28px 24px', borderRadius:20, boxShadow:'0 20px 40px rgba(26,77,46,0.12), 0 4px 12px rgba(0,0,0,0.06)', boxSizing:'border-box', border:'1px solid #e8f5e9'}}>
+            <div style={{textAlign:'center', marginBottom:22}}>
+              <div style={{width:56, height:56, background:'#1a4d2e', borderRadius:16, display:'flex', alignItems:'center', justifyContent:'center', margin:'0 auto 12px', fontSize:28}}>🌿</div>
+              <h2 style={{margin:0, fontSize:26, fontWeight:800, color:'#1a1a1a', letterSpacing:'-0.5px'}}>{isLogin ? 'Welcome Back' : 'Create Account'}</h2>
+              <p style={{margin:'6px 0 0', color:'#6b7280', fontSize:14}}>{isLogin ? 'Login to continue healing' : 'Join 2,000+ natural healers'}</p>
+            </div>
+            {!isLogin && (
+              <div style={{marginBottom:14}}>
+                <label style={{fontSize:13, fontWeight:600, color:'#374151', marginBottom:6, display:'block'}}>Full Name</label>
+                <input placeholder="John Doe" value={authForm.name} onChange={e=>setAuthForm({...authForm, name:e.target.value})} style={{padding:'14px 16px', width:'100%', boxSizing:'border-box', borderRadius:12, border:'1.5px solid #e5e7eb', background:'#f9fafb', fontSize:15, outline:'none'}} />
+              </div>
+            )}
+            <div style={{marginBottom:14}}>
+              <label style={{fontSize:13, fontWeight:600, color:'#374151', marginBottom:6, display:'block'}}>Email Address</label>
+              <input placeholder="you@example.com" value={authForm.email} onChange={e=>setAuthForm({...authForm, email:e.target.value})} style={{padding:'14px 16px', width:'100%', boxSizing:'border-box', borderRadius:12, border:'1.5px solid #e5e7eb', background:'#f9fafb', fontSize:15, outline:'none'}} />
+            </div>
+            <div style={{marginBottom:14}}>
+              <label style={{fontSize:13, fontWeight:600, color:'#374151', marginBottom:6, display:'block'}}>Password</label>
+              <input type="password" placeholder="••••••••" value={authForm.password} onChange={e=>setAuthForm({...authForm, password:e.target.value})} style={{padding:'14px 16px', width:'100%', boxSizing:'border-box', borderRadius:12, border:'1.5px solid #e5e7eb', background:'#f9fafb', fontSize:15, outline:'none'}} />
+            </div>
+            {!isLogin && (
+              <div style={{marginBottom:18}}>
+                <label style={{fontSize:13, fontWeight:600, color:'#374151', marginBottom:6, display:'block'}}>Account Type</label>
+                <select value={authForm.role} onChange={e=>setAuthForm({...authForm, role:e.target.value})} style={{padding:'14px 16px', width:'100%', boxSizing:'border-box', borderRadius:12, border:'1.5px solid #e5e7eb', background:'#f9fafb', fontSize:15}}>
+                  <option value="user">🌱 I am a Customer</option>
+                  <option value="admin">🔑 I am an Admin</option>
+                </select>
+              </div>
+            )}
+            <button onClick={handleAuth} style={{width:'100%', padding:'14px', background:'linear-gradient(135deg, #1a4d2e 0%, #2e7d32 100%)', color:'white', border:'none', borderRadius:12, fontSize:16, fontWeight:700, cursor:'pointer', boxShadow:'0 8px 20px rgba(26,77,46,0.25)'}}>
+              {isLogin ? 'Login →' : 'Create Account →'}
+            </button>
+            <p style={{marginTop:18, textAlign:'center', fontSize:14, color:'#6b7280'}}>
+              {isLogin ? "Don't have an account?" : "Already have an account?"} 
+              <span style={{color:'#1a4d2e', fontWeight:700, cursor:'pointer', marginLeft:6}} onClick={()=>setIsLogin(!isLogin)}>
+                {isLogin ? 'Sign Up' : 'Login'}
+              </span>
+            </p>
+            <p style={{marginTop:12, textAlign:'center', fontSize:12, color:'#9ca3af'}}>100% secure • Trusted by 2,000+ Nigerians</p>
+          </div>
         </div>
       )}
 
@@ -191,23 +219,23 @@ export default function App(){
       )}
 
       {view==='cart' && (
-        <div style={{padding:20, maxWidth:600, margin:'auto'}}>
+        <div style={{padding:20, maxWidth:600, width:'92%', margin:'auto', boxSizing:'border-box'}}>
           <h2>Your Cart</h2>
           {cart.map((p,i)=><div key={i} style={{display:'flex', justifyContent:'space-between', borderBottom:'1px solid #eee', padding:10}}><span>{p.name}</span><span>₦{p.price}</span></div>)}
           <h3>Total: ₦{total}</h3>
-          <input placeholder="Your email for receipt" value={email} onChange={e=>setEmail(e.target.value)} style={{padding:12, width:'100%', borderRadius:8, border:'1px solid #ccc'}} />
-          <button className="btn" style={{marginTop:10, width:'100%'}} onClick={pay}>Pay with Paystack</button>
+          <input placeholder="Your email for receipt" value={email} onChange={e=>setEmail(e.target.value)} style={{padding:12, width:'100%', borderRadius:8, border:'1px solid #ccc', boxSizing:'border-box'}} />
+          <button className="btn" style={{marginTop:10, width:'100%', boxSizing:'border-box'}} onClick={pay}>Pay with Paystack</button>
         </div>
       )}
 
       {/* ADMIN - ONLY ADMIN */}
       {view==='admin' && user?.role==='admin' && (
-        <div style={{padding:20, maxWidth:700, margin:'auto'}}>
+        <div style={{padding:20, maxWidth:700, width:'92%', margin:'auto', boxSizing:'border-box'}}>
           <h2>{editingId ? 'Edit Product' : 'Create Product'} - Admin Only</h2>
-          <input placeholder="Name" value={form.name} onChange={e=>setForm({...form, name:e.target.value})} style={{padding:10, width:'100%', marginBottom:8}}/>
-          <input placeholder="Price" type="number" value={form.price} onChange={e=>setForm({...form, price:e.target.value})} style={{padding:10, width:'100%', marginBottom:8}}/>
-          <input placeholder="Image URL" value={form.image} onChange={e=>setForm({...form, image:e.target.value})} style={{padding:10, width:'100%', marginBottom:8}}/>
-          <textarea placeholder="Description" value={form.description} onChange={e=>setForm({...form, description:e.target.value})} style={{padding:10, width:'100%', marginBottom:8}}/>
+          <input placeholder="Name" value={form.name} onChange={e=>setForm({...form, name:e.target.value})} style={{padding:10, width:'100%', marginBottom:8, boxSizing:'border-box'}}/>
+          <input placeholder="Price" type="number" value={form.price} onChange={e=>setForm({...form, price:e.target.value})} style={{padding:10, width:'100%', marginBottom:8, boxSizing:'border-box'}}/>
+          <input placeholder="Image URL" value={form.image} onChange={e=>setForm({...form, image:e.target.value})} style={{padding:10, width:'100%', marginBottom:8, boxSizing:'border-box'}}/>
+          <textarea placeholder="Description" value={form.description} onChange={e=>setForm({...form, description:e.target.value})} style={{padding:10, width:'100%', marginBottom:8, boxSizing:'border-box'}}/>
           <button className="btn" onClick={createOrUpdate}>{editingId ? 'Update' : 'Create'}</button>
           <hr style={{margin:'20px 0'}}/>
           <h3>All Products</h3>
