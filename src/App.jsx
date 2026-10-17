@@ -75,22 +75,55 @@ export default function App(){
     setView('landing')
   }
 
-  // --- ADMIN CRUD ---
+    // --- ADMIN CRUD - NEW FIXED ---
   const createOrUpdate = async()=>{
+    if(!form.name || !form.price){
+      return alert('Please fill Name and Price')
+    }
+    const payload = {
+      name: form.name,
+      price: Number(form.price),
+      description: form.description,
+      image: form.image,
+      stock: Number(form.stock) || 10
+    }
     try{
       if(editingId){
-        await axios.put(`${BACKEND}/api/products/${editingId}`, {...form, price:Number(form.price)})
+        await axios.put(`${BACKEND}/api/products/${editingId}`, payload)
       }else{
-        await axios.post(`${BACKEND}/api/products`, {...form, price:Number(form.price)})
+        await axios.post(`${BACKEND}/api/products`, payload)
       }
       setForm({ name:'', price:'', description:'', image:'', stock:'10' })
       setEditingId(null)
       loadProducts()
-      alert('Saved!')
-    }catch(e){ alert(e.response?.data?.message || 'Error') }
+      alert('Saved successfully!')
+    }catch(e){ 
+      console.log(e)
+      const realError = e.response?.data?.message || e.response?.data?.error || JSON.stringify(e.response?.data) || e.message
+      alert('Failed: ' + realError)
+      if(!e.response){
+        alert('Backend is waking up on Render... wait 30 seconds then try again')
+        axios.get(`${BACKEND}/api/products`)
+      }
+    }
   }
-  const edit = (p)=>{ setForm(p); setEditingId(p.id); window.scrollTo(0,0) }
-  const del = async(id)=>{ if(!confirm('Delete?')) return; await axios.delete(`${BACKEND}/api/products/${id}`); loadProducts() }
+
+  const edit = (p)=>{ 
+    setForm({ name: p.name, price: p.price, description: p.description, image: p.image, stock: p.stock || '10' }); 
+    setEditingId(p.id || p._id); 
+    window.scrollTo(0,0) 
+  }
+
+  const del = async(id)=>{ 
+    if(!confirm('Delete this product?')) return; 
+    try{
+      await axios.delete(`${BACKEND}/api/products/${id}`); 
+      loadProducts()
+      alert('Deleted!')
+    }catch(e){
+      alert('Delete Failed: ' + (e.response?.data?.message || e.message))
+    }
+  }
 
   const pay = ()=>{
     if(!email) return alert('Enter email')
@@ -110,7 +143,6 @@ export default function App(){
       handler.openIframe()
     })
   }
-
   return (
     <>
       <div className="header" style={{background:'#1a4d2e', color:'white', padding:'12px 20px', display:'flex', justifyContent:'space-between'}}>
